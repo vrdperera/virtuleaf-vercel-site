@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Virtuleaf Hydration & Endurance — caffeine-free herbal infusion for hydration, stamina, relaxation, and recovery." />
+  <meta name="theme-color" content="#0B2216" />
+  <title>Hydration & Endurance — Virtuleaf</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Product page inspired by "Shrine" structure (gallery + buy box + benefits + ingredients + protocol + how-to + FAQ + reviews) */
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:#062216; background:#FBFBFA; line-height:1.55;
+      -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button, input{ font:inherit; }
+    :focus-visible{ outline:3px solid rgba(184,255,44,.55); outline-offset:2px; border-radius:14px; }
+
+    :root{
+      --ink:#062216;
+      --muted: rgba(6,34,22,.68);
+      --muter: rgba(6,34,22,.52);
+      --border: rgba(6,34,22,.16);
+      --hair: rgba(6,34,22,.10);
+      --paper:#fff;
+      --wash:#F3F4F2;
+
+      --focus:#2C7DFF;
+      --lime:#B8FF2C;
+
+      --r18:18px; --r24:24px; --r28:28px; --rp:999px;
+      --max:1160px;
+      --shadowSoft:0 18px 55px rgba(6,34,22,.12);
+      --shadowChunk:0 12px 0 rgba(6,34,22,.10);
+    }
+
+    .wrap{ max-width:var(--max); margin:0 auto; padding:0 22px; }
+    .row{ display:flex; align-items:center; gap:12px; }
+    .stack{ display:grid; gap:12px; }
+    .grid{ display:grid; gap:14px; }
+    .kicker{
+      font-family:"IBM Plex Sans", Inter, sans-serif;
+      letter-spacing:.14em; text-transform:uppercase;
+      color: rgba(6,34,22,.55);
+      font-weight:800; font-size:11px;
+    }
+    h1{
+      margin:0;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight:700;
+      letter-spacing:-.05em;
+      line-height:.98;
+      font-size: clamp(40px, 5.2vw, 74px);
+    }
+    h2{
+      margin:0;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight:700;
+      letter-spacing:-.04em;
+      line-height:1.03;
+      font-size: clamp(26px, 3.4vw, 48px);
+    }
+    p{ margin:0; }
+    .lead{ color: var(--muted); font-size:16px; max-width: 66ch; }
+    .fine{ color: var(--muter); font-size:12px; font-weight:650; }
+
+    /* Top strip + header */
+    .strip{
+      position: sticky; top: 0; z-index: 80;
+      background: rgba(251,251,250,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--hair);
+    }
+    .strip .wrap{
+      padding: 10px 22px;
+      display:flex; align-items:center; justify-content: space-between; gap: 12px;
+      font-size: 12px; color: var(--muted); font-weight: 650;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 7px 12px;
+      border-radius: var(--rp);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+    }
+    header{
+      position: sticky; top: 44px; z-index: 70;
+      background: rgba(251,251,250,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    header .wrap{
+      padding: 14px 22px;
+      display:flex; align-items:center; justify-content: space-between; gap: 14px;
+    }
+    .logo{
+      display:flex; align-items:center; gap: 10px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-weight: 800; letter-spacing: -.03em;
+      font-size: 18px; text-transform: lowercase;
+    }
+    .mark{
+      width: 30px; height: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(44,125,255,.28), rgba(255,255,255,0) 60%),
+        radial-gradient(circle at 70% 70%, rgba(184,255,44,.22), rgba(255,255,255,0) 62%),
+        white;
+      box-shadow: 0 10px 28px rgba(6,34,22,.10);
+    }
+    nav ul{ list-style:none; padding:0; margin:0; display:none; gap: 10px; }
+    nav a{
+      padding: 10px 12px;
+      border-radius: var(--rp);
+      font-weight: 750;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    nav a:hover{ background: rgba(6,34,22,.04); color: var(--ink); }
+    @media (min-width: 900px){ nav ul{ display:flex; } }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
+      padding: 11px 14px;
+      border-radius: var(--rp);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.85);
+      color: var(--ink);
+      font-weight: 900;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      user-select:none;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadowSoft); }
+    .btn.primary{ background: var(--ink); color: white; border-color: rgba(255,255,255,.10); }
+    .btn.pop{ background: var(--lime); border-color: rgba(6,34,22,.18); }
+    .btn.ghost{ background: transparent; }
+
+    /* Hero */
+    section{ padding: 72px 0; }
+    section.slim{ padding: 54px 0; }
+
+    .hero{
+      padding-top: 26px;
+      background:
+        radial-gradient(1200px 520px at 18% 0%, rgba(44,125,255,.16), transparent 60%),
+        radial-gradient(1000px 520px at 85% 12%, rgba(184,255,44,.14), transparent 62%),
+        linear-gradient(180deg, #FBFBFA, #FBFBFA);
+    }
+    .heroGrid{ display:grid; gap: 16px; align-items:start; }
+    @media (min-width: 980px){ .heroGrid{ grid-template-columns: 1.05fr .95fr; gap: 22px; } }
+
+    .gallery{
+      border-radius: var(--r28);
+      border: 1px solid rgba(6,34,22,.16);
+      background: var(--paper);
+      box-shadow: var(--shadowSoft);
+      overflow:hidden;
+    }
+    .gallery .stage{
+      aspect-ratio: 4/3;
+      background:
+        radial-gradient(800px 340px at 30% 30%, rgba(44,125,255,.32), transparent 55%),
+        linear-gradient(135deg, rgba(6,34,22,.92), rgba(10,56,36,.92));
+      position: relative;
+      display:grid;
+      place-items:center;
+      color: rgba(255,255,255,.78);
+      font-weight: 800;
+      text-align:center;
+      padding: 14px;
+    }
+    .gallery .thumbs{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 12px;
+      border-top: 1px solid var(--hair);
+      background: rgba(243,244,242,.75);
+    }
+    .thumb{
+      aspect-ratio: 1/1;
+      border-radius: 16px;
+      border: 1px solid rgba(6,34,22,.16);
+      background:
+        radial-gradient(500px 200px at 30% 30%, rgba(44,125,255,.28), transparent 55%),
+        rgba(255,255,255,.85);
+    }
+
+    .buyBox{
+      border-radius: var(--r28);
+      border: 1px solid rgba(6,34,22,.16);
+      background: var(--paper);
+      box-shadow: var(--shadowChunk);
+      padding: 16px;
+    }
+    .rating{
+      display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+      color: rgba(6,34,22,.72);
+      font-weight: 800;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 13px;
+    }
+    .stars{ letter-spacing: 1px; color: #B77A00; }
+    .titleRow{ display:flex; justify-content: space-between; align-items:flex-start; gap: 12px; margin-top: 10px; }
+    .tag{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 7px 10px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(6,34,22,.16);
+      background: rgba(255,255,255,.82);
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 12px;
+    }
+    .sw{ width: 10px; height: 10px; border-radius: 999px; background: #2C7DFF; }
+
+    .priceRow{ display:flex; justify-content: space-between; align-items:flex-end; gap: 10px; margin-top: 12px; }
+    .price{
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 40px;
+      line-height: 1;
+    }
+    .subNote{ color: var(--muter); font-size: 12px; font-weight: 700; }
+
+    .purchase{
+      margin-top: 12px;
+      border-top: 1px solid var(--hair);
+      padding-top: 12px;
+      display:grid;
+      gap: 10px;
+    }
+    .choiceGrid{ display:grid; gap: 10px; }
+    .choice{
+      display:flex; justify-content: space-between; gap: 12px; align-items:center;
+      border: 1px solid rgba(6,34,22,.16);
+      border-radius: 18px;
+      padding: 12px;
+      background: rgba(243,244,242,.65);
+      cursor:pointer;
+    }
+    .choice strong{ font-family:"Space Grotesk", Inter, sans-serif; letter-spacing:-.02em; }
+    .choice small{ color: var(--muter); font-weight: 700; }
+    .choice input{ accent-color: #0B2216; }
+
+    .buyActions{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .buyActions .btn{ flex: 1; }
+
+    .trustRow{ display:flex; flex-wrap:wrap; gap: 10px; margin-top: 12px; }
+    .trustPill{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 10px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(6,34,22,.14);
+      background: rgba(255,255,255,.80);
+      color: rgba(6,34,22,.78);
+      font-weight: 850;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 12px;
+    }
+
+    /* Sections */
+    .secHead{ display:flex; justify-content: space-between; align-items:flex-end; gap: 16px; margin-bottom: 14px; }
+    .card{
+      border-radius: var(--r28);
+      border: 1px solid rgba(6,34,22,.16);
+      background: white;
+      box-shadow: var(--shadowSoft);
+      padding: 16px;
+    }
+    .bul{ margin:0; padding:0; list-style:none; display:grid; gap: 8px; }
+    .bul li{ display:flex; gap: 10px; align-items:flex-start; font-size: 13px; color: rgba(6,34,22,.86); }
+    .chk{
+      width: 18px; height: 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(6,34,22,.18);
+      background: rgba(6,34,22,.04);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0; margin-top: 2px;
+      font-weight: 1000; font-size: 12px;
+    }
+
+    .chips{ display:flex; flex-wrap:wrap; gap: 8px; margin-top: 10px; }
+    .chip{
+      padding: 8px 10px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(6,34,22,.14);
+      background: rgba(243,244,242,.75);
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 12px;
+    }
+
+    /* Two-column blocks */
+    .split{ display:grid; gap: 14px; }
+    @media (min-width: 980px){ .split{ grid-template-columns: 1fr 1fr; gap: 22px; } }
+
+    /* FAQ */
+    details{
+      border: 1px solid rgba(6,34,22,.16);
+      border-radius: 18px;
+      background: white;
+      padding: 12px 14px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex; align-items:center; justify-content: space-between; gap: 12px;
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      letter-spacing: -.01em;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .plus{
+      width: 26px; height: 26px;
+      border-radius: 12px;
+      border: 1px solid var(--hair);
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(243,244,242,.75);
+      flex-shrink:0;
+      color: rgba(6,34,22,.60);
+      transition: transform .2s ease;
+    }
+    details[open] .plus{ transform: rotate(45deg); }
+    details p{ margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+
+    /* Reviews */
+    .reviews{ display:grid; gap: 12px; }
+    @media (min-width: 980px){ .reviews{ grid-template-columns: 1fr 1fr 1fr; } }
+    .review{ border-radius: var(--r28); border: 1px solid rgba(6,34,22,.16); background: white; padding: 16px; box-shadow: 0 12px 0 rgba(6,34,22,.08); }
+    .quote{ margin: 10px 0 8px; font-size: 16px; font-family:"Space Grotesk", Inter, sans-serif; font-weight: 700; letter-spacing:-.02em; }
+    .who{ margin-top: 12px; display:flex; justify-content: space-between; gap: 10px; color: var(--muter); font-size: 12px; font-weight: 800; }
+
+    /* Sticky bar */
+    .sticky{
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 85;
+      display:none;
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+    }
+    .sticky.show{ display:block; }
+    .sticky .wrap{
+      padding: 12px 22px;
+      display:flex; justify-content: space-between; align-items:center; gap: 12px;
+    }
+    .sticky .mini{ color: var(--muted); font-size: 12px; font-weight: 850; }
+    .sticky .mini strong{ color: var(--ink); }
+
+    /* Reveal */
+    .reveal{ opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in{ opacity:1; transform:none; }
+  </style>
+</head>
+
+<body>
+  <div class="strip">
+    <div class="wrap">
+      <div class="row" style="flex-wrap:wrap;gap:10px;">
+        <span class="pill">⚡ Functional high‑performance tea</span>
+        <span class="pill">♻️ Plant‑based tea bags</span>
+        <span class="pill">✅ Zero added sugar</span>
+      </div>
+      <div class="row" style="gap:12px;">
+        <a href="#ingredients" class="hide-sm">Ingredients</a>
+        <a href="#how" class="hide-sm">How to brew</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap">
+      <a class="logo" href="/" aria-label="Virtuleaf home (v8)">
+        <span class="mark" aria-hidden="true"></span>
+        <span>virtuleaf</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#ingredients">Ingredients</a></li>
+          <li><a href="#protocol">Protocol</a></li>
+          <li><a href="#how">How to brew</a></li>
+        </ul>
+      </nav>
+      <div class="row">
+        <a class="btn ghost" href="#buy">Buy</a>
+        <a class="btn primary" href="https://virtuleaf.com.au/products/energy-focus-tea-copy" target="_blank" rel="noreferrer">Shop on Virtuleaf</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO / BUY -->
+    <section class="hero slim" id="buy">
+      <div class="wrap heroGrid">
+        <div class="gallery reveal" aria-label="Product gallery">
+          <div class="stage">
+            Replace with your carton + lifestyle images<br>
+            <span style="opacity:.85;">Hydration & Endurance</span>
+          </div>
+          <div class="thumbs" aria-hidden="true">
+            <div class="thumb"></div>
+            <div class="thumb"></div>
+            <div class="thumb"></div>
+          </div>
+        </div>
+
+        <div class="buyBox reveal">
+          <div class="rating">
+            <span class="stars" aria-hidden="true">★★★★★</span>
+            <span>Rating placeholder</span>
+            <span style="color:rgba(6,34,22,.55);font-weight:800;">•</span>
+            <span style="color:rgba(6,34,22,.55);">Replace with real reviews</span>
+          </div>
+
+          <div class="titleRow">
+            <div class="stack" style="gap:8px;">
+              <div class="kicker">Natural Herbal Infusion | Caffeine Free</div>
+              <h1>Hydration & Endurance</h1>
+              <div class="row" style="flex-wrap:wrap;">
+                <span class="tag"><span class="sw" aria-hidden="true"></span> 0mg caffeine / serve</span>
+                <span class="tag">25 serves</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="lead" style="margin-top:10px;">
+            Experience replenishment and refreshment with a hydrating tea blend crafted to support stamina, relaxation, and swift recovery.
+          </p>
+
+          <div class="priceRow">
+            <div class="price" id="price">$22</div>
+            <div class="subNote" id="note">One‑time purchase · 25 serves</div>
+          </div>
+
+          <div class="purchase" aria-label="Purchase options">
+            <div class="kicker">Purchase options</div>
+
+            <div class="choiceGrid" role="radiogroup" aria-label="Purchase type">
+              <label class="choice">
+                <span class="row" style="gap:10px;">
+                  <input type="radio" name="plan" value="once" checked />
+                  <span>
+                    <strong>One‑time</strong><br>
+                    <small>$22 · 1 box</small>
+                  </span>
+                </span>
+                <small>Standard</small>
+              </label>
+
+              <label class="choice">
+                <span class="row" style="gap:10px;">
+                  <input type="radio" name="plan" value="sub" />
+                  <span>
+                    <strong>Subscribe</strong><br>
+                    <small>$17.60/mo · cancel anytime</small>
+                  </span>
+                </span>
+                <small>Save 20%</small>
+              </label>
+            </div>
+
+            <div class="buyActions">
+              <a class="btn primary" style="flex:1;" href="https://virtuleaf.com.au/products/energy-focus-tea-copy" target="_blank" rel="noreferrer">Buy now</a>
+              <a class="btn pop" style="flex:1;" href="#how">How to brew</a>
+            </div>
+
+            <div class="trustRow">
+              <span class="trustPill">♻️ Plant‑based bags</span>
+              <span class="trustPill">🌿 No artificial flavouring</span>
+              <span class="trustPill">🍃 Vegan</span>
+            </div>
+
+            <p class="fine" style="margin-top:10px;">
+              General wellness support. Not medical advice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section id="benefits">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Benefits</div>
+            <h2>What it’s built to do</h2>
+            <p class="lead">Keep benefits consistent with your carton and approved claims.</p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card reveal">
+            <div class="kicker">Primary</div>
+            <ul class="bul" style="margin-top:10px;">
+              <li><span class="chk" aria-hidden="true">✓</span> Supports focus & mental clarity</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Energising lift for high‑performance days</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Designed for repeatability</li>
+            </ul>
+          </div>
+
+          <div class="card reveal">
+            <div class="kicker">Use cases</div>
+            <ul class="bul" style="margin-top:10px;">
+              <li><span class="chk" aria-hidden="true">✓</span> Morning deep work</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Pre‑training / during activity</li>
+              <li><span class="chk" aria-hidden="true">✓</span> When you want steady energy (not chaos)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INGREDIENTS -->
+    <section id="ingredients" style="background: var(--wash); border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Key ingredients</div>
+            <h2>Every ingredient earns its place</h2>
+            <p class="lead">List matches your carton. Add per‑ingredient science only if you can substantiate.</p>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="chips" aria-label="Ingredient chips">
+            <span class="chip">Natural moringa</span>
+            <span class="chip">Natural peppermint</span>
+            <span class="chip">Natural blue butterfly pea</span>
+            <span class="chip">Natural mango</span>
+            <span class="chip">Natural guava</span>
+            <span class="chip">Natural mint flavouring</span>
+          </div>
+          <p class="fine" style="margin-top:12px;">
+            Ingredient list shown as on-carton. Replace “natural” phrasing only if your label changes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLEAN PROTOCOL -->
+    <section id="protocol">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">The clean protocol</div>
+            <h2>Built clean, not complicated</h2>
+            <p class="lead">These are the claims visible on your carton—keep them accurate.</p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card reveal">
+            <ul class="bul">
+              <li><span class="chk" aria-hidden="true">✓</span> Zero added sugar</li>
+              <li><span class="chk" aria-hidden="true">✓</span> No artificial flavouring</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Vegan product</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Low in calories</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Sustainably sourced</li>
+            </ul>
+          </div>
+
+          <div class="card reveal">
+            <ul class="bul">
+              <li><span class="chk" aria-hidden="true">✓</span> Biodegradable plant‑based tea bags</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Non‑plastic tea bags</li>
+              <li><span class="chk" aria-hidden="true">✓</span> Hot or iced options</li>
+              <li><span class="chk" aria-hidden="true">✓</span> 25 serves per box</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO USE -->
+    <section id="how" style="background: var(--wash); border-top:1px solid var(--hair); border-bottom:1px solid var(--hair);">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">How to brew</div>
+            <h2>Simple. Repeatable.</h2>
+            <p class="lead">Boiling water, a short steep, and you’re done.</p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card reveal">
+            <div class="kicker">Hot brew</div>
+            <ul class="bul" style="margin-top:10px;">
+              <li><span class="chk" aria-hidden="true">1</span> 100°C / 212°F water</li>
+              <li><span class="chk" aria-hidden="true">2</span> 1 bag per 250 ml</li>
+              <li><span class="chk" aria-hidden="true">3</span> Steep 3–5 minutes</li>
+            </ul>
+          </div>
+
+          <div class="card reveal">
+            <div class="kicker">Iced brew</div>
+            <ul class="bul" style="margin-top:10px;">
+              <li><span class="chk" aria-hidden="true">1</span> Brew hot (3–5 min)</li>
+              <li><span class="chk" aria-hidden="true">2</span> Pour over ice</li>
+              <li><span class="chk" aria-hidden="true">3</span> Enjoy during activity</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="fine reveal" style="margin-top:12px;">
+          Made and packaged in Sri Lanka. Store in a cool, dry place.
+        </p>
+      </div>
+    </section>
+
+    <!-- STILL UNSURE -->
+    <section>
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Still unsure?</div>
+            <h2>Start with the simplest system</h2>
+            <p class="lead">Most people do best with the AM + PM bundle. Less decision fatigue. More consistency.</p>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <div class="row" style="justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+            <div class="stack" style="gap:8px; min-width:240px;">
+              <div class="kicker">Recommended</div>
+              <div style="font-family:'Space Grotesk',Inter,sans-serif;font-weight:900;letter-spacing:-.03em;font-size:20px;">Daily Essentials Bundle</div>
+              <p class="fine">Hydration & Endurance + Hydration & Endurance</p>
+            </div>
+            <div class="row" style="gap:10px; flex-wrap:wrap;">
+              <a class="btn primary" href="https://virtuleaf.com.au/" target="_blank" rel="noreferrer">Shop bundle</a>
+              <a class="btn" href="/products/energy-focus/">See PM blend →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section id="reviews" style="background: var(--wash); border-top:1px solid var(--hair);">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Reviews</div>
+            <h2>What people say</h2>
+            <p class="lead">Replace these with real reviews. Keep them short and specific.</p>
+          </div>
+        </div>
+
+        <div class="reviews">
+          <article class="review reveal">
+            <div class="stars">★★★★★</div>
+            <div class="quote">“I swapped my second coffee for this. Way steadier.”</div>
+            <p class="fine">Short, realistic, not medical.</p>
+            <div class="who"><span>— Customer</span><span>Hydration & Endurance</span></div>
+          </article>
+          <article class="review reveal">
+            <div class="stars">★★★★★</div>
+            <div class="quote">“Taste is clean. The routine is what changed everything.”</div>
+            <p class="fine">Short, realistic, not medical.</p>
+            <div class="who"><span>— Customer</span><span>AM ritual</span></div>
+          </article>
+          <article class="review reveal">
+            <div class="stars">★★★★★</div>
+            <div class="quote">“No ‘wired’ feeling. Just focus.”</div>
+            <p class="fine">Short, realistic, not medical.</p>
+            <div class="who"><span>— Customer</span><span>Deep work</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">FAQ</div>
+            <h2>Quick answers</h2>
+            <p class="lead">Keep answers aligned with your label and policies.</p>
+          </div>
+        </div>
+
+        <details class="reveal">
+          <summary>Is Hydration & Endurance caffeine‑free? <span class="plus" aria-hidden="true">+</span></summary>
+          <p>0mg caffeine per serve (as shown on your carton).</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Can I drink it hot or iced? <span class="plus" aria-hidden="true">+</span></summary>
+          <p>Yes. Brew with boiling water for 3–5 minutes. Enjoy hot or pour over ice.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Is there added sugar? <span class="plus" aria-hidden="true">+</span></summary>
+          <p>No. The carton states zero added sugar.</p>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky CTA -->
+  <div class="sticky" id="sticky">
+    <div class="wrap">
+      <div class="mini"><strong>Hydration & Endurance</strong> · 25 serves · 0mg caffeine</div>
+      <div class="row" style="gap:10px;">
+        <a class="btn pop" href="#buy">Choose plan</a>
+        <a class="btn primary" href="https://virtuleaf.com.au/products/energy-focus-tea-copy" target="_blank" rel="noreferrer">Buy now</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Plan selector (visual only; link goes to Shopify)
+    const radios = document.querySelectorAll('input[name="plan"]');
+    const priceEl = document.getElementById('price');
+    const noteEl = document.getElementById('note');
+
+    const setPlan = (v) => {
+      if(v === 'sub'){
+        priceEl.textContent = '$17.60';
+        noteEl.textContent = 'Subscription · billed monthly · cancel anytime';
+      } else {
+        priceEl.textContent = '$22';
+        noteEl.textContent = 'One‑time purchase · 25 serves';
+      }
+    };
+
+    radios.forEach(r => r.addEventListener('change', e => setPlan(e.target.value)));
+    setPlan(document.querySelector('input[name="plan"]:checked')?.value || 'once');
+
+    // Sticky CTA
+    const sticky = document.getElementById('sticky');
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      sticky.classList.toggle('show', y > 640);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

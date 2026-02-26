@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Virtuleaf — premium functional tea for high-performance days. AM energy + PM recovery." />
+  <meta name="theme-color" content="#0B2216" />
+  <title>Virtuleaf — One ritual. Two blends.</title>
+
+  <!-- Hybrid vibe: Grüns energy for Shop + Seed editorial for Science/Learn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       Virtuleaf v8 — Hybrid (Shop = bold / Science = editorial)
+       Single-file, fast, accessible, responsive
+       ========================================================== */
+
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height:1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+    img{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
+    button, input{ font:inherit; }
+    :focus-visible{ outline:3px solid color-mix(in oklab, var(--accent) 70%, white 30%); outline-offset:2px; border-radius:14px; }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      *{ animation:none !important; transition:none !important; }
+    }
+
+    :root{
+      /* Base */
+      --bg: #FBFBFA;
+      --paper: #FFFFFF;
+      --ink: #062216;
+      --muted: rgba(6,34,22,.68);
+      --muter: rgba(6,34,22,.52);
+      --border: rgba(6,34,22,.16);
+      --hair: rgba(6,34,22,.10);
+
+      /* Brand accents (match the two cartons: punchy + athletic) */
+      --focus: #FF3D7F;    /* Energy & Focus (pink/red vibe) */
+      --hydrate:#2C7DFF;   /* Hydration & Endurance (blue vibe) */
+      --lime:  #B8FF2C;    /* micro pop */
+      --gold:  #FFB800;
+
+      /* Layout */
+      --r18: 18px;
+      --r24: 24px;
+      --r28: 28px;
+      --rp: 999px;
+      --max: 1160px;
+
+      /* Default accent */
+      --accent: var(--lime);
+      --shadowSoft: 0 18px 55px rgba(6,34,22,.12);
+      --shadowChunk: 0 12px 0 rgba(6,34,22,.10);
+    }
+
+    .wrap{ max-width: var(--max); margin:0 auto; padding:0 22px; }
+    .row{ display:flex; align-items:center; gap:12px; }
+    .stack{ display:grid; gap:12px; }
+    .grid{ display:grid; gap:14px; }
+    .hide-sm{ display:none; }
+    @media (min-width: 900px){ .hide-sm{ display:initial; } }
+
+    /* ==========================================
+       Top strip + header (clean)
+       ========================================== */
+    .strip{
+      position: sticky; top: 0; z-index: 80;
+      background: rgba(251,251,250,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--hair);
+    }
+    .strip .wrap{
+      padding: 10px 22px;
+      display:flex; align-items:center; justify-content: space-between; gap: 12px;
+      font-size: 12px; color: var(--muted); font-weight: 650;
+    }
+    .strip .pill{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 7px 12px;
+      border-radius: var(--rp);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.75);
+    }
+    .strip a{ text-decoration: underline; text-underline-offset: 3px; }
+
+    header{
+      position: sticky; top: 44px; z-index: 70;
+      background: rgba(251,251,250,.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    header .wrap{
+      padding: 14px 22px;
+      display:flex; align-items:center; justify-content: space-between; gap: 14px;
+    }
+    .logo{
+      display:flex; align-items:center; gap: 10px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 18px;
+      text-transform: lowercase;
+    }
+    .mark{
+      width: 30px; height: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 30% 30%, color-mix(in oklab, var(--focus) 65%, white 35%), rgba(255,255,255,0) 60%),
+        radial-gradient(circle at 70% 70%, color-mix(in oklab, var(--hydrate) 60%, white 40%), rgba(255,255,255,0) 62%),
+        white;
+      box-shadow: 0 10px 28px rgba(6,34,22,.10);
+    }
+    nav ul{ list-style:none; padding:0; margin:0; display:none; gap: 10px; }
+    nav a{
+      padding: 10px 12px;
+      border-radius: var(--rp);
+      font-weight: 750;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    nav a:hover{ background: rgba(6,34,22,.04); color: var(--ink); }
+    @media (min-width: 900px){ nav ul{ display:flex; } }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap: 10px;
+      padding: 11px 14px;
+      border-radius: var(--rp);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.85);
+      color: var(--ink);
+      font-weight: 900;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadowSoft); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: var(--ink);
+      color: white;
+      border-color: rgba(255,255,255,.10);
+    }
+    .btn.pop{
+      background: var(--lime);
+      border-color: rgba(6,34,22,.18);
+    }
+    .btn.ghost{ background: transparent; }
+
+    .menu{
+      width: 42px; height: 42px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: white;
+      display:inline-flex; align-items:center; justify-content:center;
+      cursor:pointer;
+    }
+    .menu svg{ width: 18px; height: 18px; }
+    @media (min-width: 900px){ .menu{ display:none; } }
+
+    /* Mobile panel */
+    .panel{
+      position: fixed; inset: 0; z-index: 95;
+      display:none;
+      background: rgba(251,251,250,.92);
+      backdrop-filter: blur(14px);
+      padding: 18px;
+    }
+    .panel.open{ display:block; }
+    .panel .card{
+      max-width: 660px;
+      margin: 80px auto 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--r28);
+      padding: 18px;
+      box-shadow: var(--shadowSoft);
+    }
+    .panel .links{ display:grid; gap: 10px; margin: 12px 0; }
+    .panel .links a{
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 12px 14px;
+      background: #F3F4F2;
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+    }
+
+    /* ==========================================
+       Sections
+       ========================================== */
+    section{ padding: 78px 0; }
+    section.slim{ padding: 54px 0; }
+
+    .kicker{
+      font-family: "IBM Plex Sans", Inter, sans-serif;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(6,34,22,.55);
+      font-weight: 800;
+      font-size: 11px;
+    }
+    h1{
+      margin:0;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 700;
+      letter-spacing: -.05em;
+      line-height: .98;
+      font-size: clamp(46px, 6.2vw, 86px);
+    }
+    h2{
+      margin:0;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 700;
+      letter-spacing: -.04em;
+      line-height: 1.03;
+      font-size: clamp(30px, 3.8vw, 56px);
+    }
+    p{ margin:0; }
+    .lead{ color: var(--muted); font-size: 16px; max-width: 64ch; }
+    .fine{ color: var(--muter); font-size: 12px; font-weight: 650; }
+
+    /* ==========================================
+       HERO (Grüns energy)
+       ========================================== */
+    .hero{
+      padding-top: 36px;
+      background:
+        radial-gradient(1200px 520px at 15% 0%, color-mix(in oklab, var(--focus) 18%, transparent 82%), transparent 60%),
+        radial-gradient(1000px 520px at 85% 10%, color-mix(in oklab, var(--hydrate) 18%, transparent 82%), transparent 62%),
+        linear-gradient(180deg, #FBFBFA, #FBFBFA);
+    }
+    .hero .wrap{
+      display:grid;
+      gap: 18px;
+      align-items:center;
+    }
+    @media (min-width: 980px){
+      .hero .wrap{ grid-template-columns: 1.15fr .85fr; gap: 26px; }
+    }
+    .stickerRow{ display:flex; flex-wrap:wrap; gap: 10px; }
+    .sticker{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(6,34,22,.18);
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 7px 0 rgba(6,34,22,.10);
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 12px;
+    }
+    .dot{ width: 9px; height: 9px; border-radius: 999px; background: var(--lime); }
+    .hl{
+      background: linear-gradient(180deg, rgba(0,0,0,0) 58%, color-mix(in oklab, var(--lime) 60%, white 40%) 58%);
+      padding: 0 .12em;
+      border-radius: 10px;
+    }
+
+    .heroCard{
+      border-radius: var(--r28);
+      border: 1px solid rgba(6,34,22,.18);
+      background: white;
+      box-shadow: var(--shadowSoft);
+      overflow:hidden;
+    }
+    .heroCard .bar{
+      padding: 14px 16px;
+      display:flex; align-items:center; justify-content: space-between; gap: 10px;
+      border-bottom: 1px solid var(--hair);
+      background: rgba(243,244,242,.75);
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 13px;
+    }
+    .stackCard{ padding: 16px; display:grid; gap: 12px; }
+    .tile{
+      border-radius: 22px;
+      border: 1px solid rgba(6,34,22,.14);
+      padding: 14px;
+      display:flex; justify-content: space-between; gap: 12px; align-items:flex-start;
+      box-shadow: 0 10px 0 rgba(6,34,22,.08);
+    }
+    .tile strong{
+      display:block;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 16px;
+      letter-spacing: -.02em;
+    }
+    .tile small{
+      display:block;
+      margin-top: 4px;
+      color: rgba(6,34,22,.60);
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .tile .price{
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 800;
+      font-size: 30px;
+      letter-spacing: -.03em;
+      line-height: 1;
+    }
+    .tile.focus{
+      background: radial-gradient(700px 220px at 20% 20%, rgba(255,61,127,.28), transparent 55%), #fff;
+    }
+    .tile.hydrate{
+      background: radial-gradient(700px 220px at 20% 20%, rgba(44,125,255,.22), transparent 55%), #fff;
+    }
+    .tile.bundle{
+      background: radial-gradient(700px 220px at 20% 20%, rgba(255,184,0,.20), transparent 55%), #fff;
+    }
+    .miniTag{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 6px 10px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(6,34,22,.14);
+      background: rgba(255,255,255,.75);
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 12px;
+    }
+    .miniTag .sw{
+      width: 10px; height: 10px; border-radius: 999px;
+    }
+
+    /* ==========================================
+       SHOP (Grüns energy)
+       ========================================== */
+    .shop{ background: #fff; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+    .secHead{ display:flex; align-items:flex-end; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .cards{ display:grid; gap: 14px; }
+    @media (min-width: 980px){ .cards{ grid-template-columns: 1fr 1fr 1fr; } }
+
+    .card{
+      border-radius: var(--r28);
+      border: 1px solid rgba(6,34,22,.16);
+      background: white;
+      box-shadow: var(--shadowChunk);
+      overflow:hidden;
+      display:flex;
+      flex-direction: column;
+    }
+    .card .img{
+      aspect-ratio: 16/10;
+      position: relative;
+      border-bottom: 1px solid var(--hair);
+      background: linear-gradient(135deg, rgba(6,34,22,.92), rgba(10,56,36,.92));
+    }
+    .card[data-swatch="focus"] .img{
+      background:
+        radial-gradient(700px 260px at 30% 30%, rgba(255,61,127,.35), transparent 55%),
+        linear-gradient(135deg, rgba(6,34,22,.92), rgba(10,56,36,.92));
+    }
+    .card[data-swatch="hydrate"] .img{
+      background:
+        radial-gradient(700px 260px at 30% 30%, rgba(44,125,255,.30), transparent 55%),
+        linear-gradient(135deg, rgba(6,34,22,.92), rgba(10,56,36,.92));
+    }
+    .card[data-swatch="bundle"] .img{
+      background:
+        radial-gradient(700px 260px at 30% 30%, rgba(255,184,0,.30), transparent 55%),
+        linear-gradient(135deg, rgba(6,34,22,.92), rgba(10,56,36,.92));
+    }
+    .img .label{
+      position:absolute; top: 14px; left: 14px;
+      padding: 7px 10px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.10);
+      color: rgba(255,255,255,.90);
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+    .img .ghostBox{
+      position:absolute; inset: 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      display:grid;
+      place-items:center;
+      color: rgba(255,255,255,.72);
+      font-weight: 800;
+      font-size: 13px;
+      text-align:center;
+      padding: 10px;
+    }
+    .card .body{ padding: 16px; display:grid; gap: 10px; }
+    .card h3{
+      margin:0;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      font-size: 20px;
+      line-height: 1.05;
+    }
+    .card .desc{ color: var(--muted); font-size: 13px; }
+    .bul{ margin:0; padding:0; list-style:none; display:grid; gap: 8px; }
+    .bul li{ display:flex; gap: 10px; align-items:flex-start; font-size: 13px; color: rgba(6,34,22,.86); }
+    .chk{
+      width: 18px; height: 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(6,34,22,.18);
+      background: rgba(6,34,22,.04);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+      margin-top: 2px;
+      font-weight: 1000;
+      font-size: 12px;
+    }
+    .meta{ display:flex; justify-content: space-between; align-items:flex-end; gap: 10px; margin-top: 2px; }
+    .meta .p{
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 36px;
+      line-height: 1;
+    }
+    .meta small{ color: var(--muter); font-weight: 700; font-size: 12px; }
+    .actions{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .actions .btn{ flex: 1; }
+
+    /* ==========================================
+       SCIENCE + LEARN (Seed editorial)
+       ========================================== */
+    .science{
+      background: linear-gradient(180deg, var(--bg), #F3F4F2);
+      border-bottom: 1px solid var(--hair);
+    }
+    .split{ display:grid; gap: 14px; align-items:start; }
+    @media (min-width: 980px){ .split{ grid-template-columns: 1fr 1fr; gap: 22px; } }
+    .lab{
+      border-radius: var(--r28);
+      border: 1px solid rgba(6,34,22,.16);
+      background: white;
+      padding: 16px;
+      box-shadow: 0 18px 55px rgba(6,34,22,.10);
+    }
+    .lab .fig{
+      height: 220px;
+      border-radius: 20px;
+      border: 1px dashed rgba(6,34,22,.24);
+      background: rgba(243,244,242,.75);
+      display:grid;
+      place-items:center;
+      color: rgba(6,34,22,.55);
+      font-weight: 800;
+      font-family:"IBM Plex Sans", Inter, sans-serif;
+      font-size: 12px;
+      text-align:center;
+      padding: 10px;
+    }
+    .lab .cap{
+      margin-top: 10px;
+      color: rgba(6,34,22,.58);
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .steps{ display:grid; gap: 10px; margin-top: 10px; }
+    .step{
+      border: 1px solid var(--hair);
+      border-radius: 18px;
+      padding: 12px;
+      background: white;
+    }
+    .step b{ display:block; font-size: 13px; letter-spacing: -.01em; }
+    .step small{ color: var(--muted); font-weight: 650; }
+
+    .learn{ background: white; border-bottom: 1px solid var(--hair); }
+    .refGrid{ display:grid; gap: 12px; }
+    @media (min-width: 980px){ .refGrid{ grid-template-columns: 1fr 1fr 1fr; } }
+    .ref{
+      border: 1px solid rgba(6,34,22,.16);
+      border-radius: var(--r28);
+      padding: 16px;
+      background: white;
+      display:grid;
+      gap: 10px;
+    }
+    .ref .meta2{
+      display:flex; justify-content: space-between; align-items:center;
+      color: var(--muter); font-size: 12px; font-weight: 700;
+      font-family:"IBM Plex Sans", Inter, sans-serif;
+      letter-spacing:.04em;
+      text-transform: uppercase;
+    }
+    .ref .title{ font-weight: 800; letter-spacing: -.02em; }
+    .ref .arrow{ color: rgba(6,34,22,.55); }
+
+    /* FAQ */
+    .faq{ background: #F3F4F2; border-bottom: 1px solid var(--hair); }
+    details{
+      border: 1px solid rgba(6,34,22,.16);
+      border-radius: 18px;
+      background: white;
+      padding: 12px 14px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex; align-items:center; justify-content: space-between; gap: 12px;
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      letter-spacing: -.01em;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .plus{
+      width: 26px; height: 26px;
+      border-radius: 12px;
+      border: 1px solid var(--hair);
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(243,244,242,.75);
+      flex-shrink:0;
+      color: rgba(6,34,22,.60);
+      transition: transform .2s ease;
+    }
+    details[open] .plus{ transform: rotate(45deg); }
+    details p{ margin: 10px 0 0; color: var(--muted); font-size: 13px; }
+
+    /* Email */
+    .email{ background: white; }
+    .form{ display:flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .field{
+      flex: 1;
+      min-width: 240px;
+      padding: 12px 14px;
+      border-radius: var(--rp);
+      border: 1px solid rgba(6,34,22,.18);
+      background: rgba(255,255,255,.90);
+    }
+
+    /* Footer */
+    footer{
+      background: var(--ink);
+      color: rgba(255,255,255,.80);
+      border-top: 1px solid rgba(255,255,255,.10);
+      padding: 50px 0;
+    }
+    footer .cols{ display:grid; gap: 16px; }
+    @media (min-width: 900px){ footer .cols{ grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 26px; } }
+    .footH{
+      font-family:"IBM Plex Sans", Inter, sans-serif;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 11px;
+      color: rgba(255,255,255,.55);
+    }
+    .footA{ list-style:none; padding:0; margin: 10px 0 0; display:grid; gap: 10px; }
+    .footA a{ color: rgba(255,255,255,.78); font-weight: 650; }
+    .footA a:hover{ color: white; }
+    .subfoot{
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      display:flex; flex-wrap:wrap; justify-content: space-between; gap: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.58);
+    }
+
+    /* Sticky CTA */
+    .sticky{
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 75;
+      display:none;
+      background: rgba(251,251,250,.88);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+    }
+    .sticky.show{ display:block; }
+    .sticky .wrap{
+      padding: 12px 22px;
+      display:flex; justify-content: space-between; align-items:center; gap: 12px;
+    }
+    .sticky .mini{ color: var(--muted); font-size: 12px; font-weight: 750; }
+    .sticky .mini strong{ color: var(--ink); }
+
+    /* Quiz modal */
+    .modal{
+      position: fixed; inset: 0; z-index: 120;
+      display:none;
+      background: rgba(6,34,22,.42);
+      backdrop-filter: blur(10px);
+      padding: 18px;
+    }
+    .modal.open{ display:grid; place-items:center; }
+    .modal .box{
+      width: min(720px, 100%);
+      background: white;
+      border-radius: var(--r28);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 55px rgba(6,34,22,.18);
+      overflow:hidden;
+    }
+    .modal .bar{
+      padding: 14px 16px;
+      display:flex; align-items:center; justify-content: space-between; gap: 10px;
+      border-bottom: 1px solid var(--hair);
+      background: rgba(243,244,242,.75);
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 900;
+    }
+    .modal .bar button{
+      border: 1px solid rgba(6,34,22,.18);
+      background: white;
+      border-radius: 14px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-weight: 900;
+      color: rgba(6,34,22,.70);
+    }
+    .modal .body{ padding: 16px; }
+    .qstep{ display:none; }
+    .qstep.active{ display:block; }
+    .qmeta{ display:flex; justify-content: space-between; color: var(--muter); font-size: 12px; font-weight: 800; }
+    .qtitle{
+      margin: 10px 0 12px;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-size: 20px;
+    }
+    .optGrid{ display:grid; gap: 10px; }
+    @media (min-width: 720px){ .optGrid{ grid-template-columns: 1fr 1fr; } }
+    .opt{
+      text-align:left;
+      border: 1px solid rgba(6,34,22,.16);
+      background: #F3F4F2;
+      border-radius: 18px;
+      padding: 12px 12px;
+      cursor:pointer;
+      font-weight: 900;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      box-shadow: 0 10px 0 rgba(6,34,22,.08);
+    }
+    .opt small{ display:block; margin-top: 4px; color: var(--muted); font-weight: 650; font-family: Inter, system-ui, sans-serif; }
+    .opt[aria-pressed="true"]{ background: color-mix(in oklab, var(--lime) 35%, white 65%); }
+    .qnav{ display:flex; justify-content: space-between; gap: 10px; margin-top: 12px; }
+    .qnav .btn{ flex: 1; }
+
+    .result{
+      display:none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(6,34,22,.22);
+    }
+    .result.show{ display:block; }
+    .result .rec{
+      border-radius: 22px;
+      border: 1px solid rgba(6,34,22,.16);
+      background: rgba(255,255,255,.90);
+      box-shadow: 0 12px 0 rgba(6,34,22,.08);
+      padding: 14px;
+      display:flex; justify-content: space-between; gap: 12px; align-items:flex-start;
+    }
+    .result .rec strong{
+      display:block;
+      font-family:"Space Grotesk", Inter, sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing: -.02em;
+    }
+    .result .rec p{ margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+    /* Reveal */
+    .reveal{ opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in{ opacity:1; transform:none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top strip -->
+  <div class="strip">
+    <div class="wrap">
+      <div class="row" style="flex-wrap:wrap;gap:10px;">
+        <span class="pill">⚡ High‑performance functional tea</span>
+        <span class="pill">🇦🇺 Formulated in Australia</span>
+        <span class="pill hide-sm">30‑day guarantee · <a href="#faq">Learn more</a></span>
+      </div>
+      <div class="row hide-sm" style="gap:12px;">
+        <a href="#science">Science</a>
+        <a href="#learn">Learn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="wrap">
+      <a class="logo" href="#top" aria-label="Virtuleaf home">
+        <span class="mark" aria-hidden="true"></span>
+        <span>virtuleaf</span>
+      </a>
+
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#shop">Shop</a></li>
+          <li><a href="#science">Science</a></li>
+          <li><a href="#learn">Learn</a></li>
+          <li><a href="#faq">Help</a></li>
+        </ul>
+      </nav>
+
+      <div class="row">
+        <button class="btn ghost hide-sm" type="button" onclick="openQuiz()">Find my blend</button>
+        <a class="btn primary" href="#shop">Shop</a>
+        <button class="menu" type="button" aria-label="Open menu" onclick="openPanel()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile panel -->
+  <div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="card">
+      <div class="row" style="justify-content:space-between;">
+        <div class="logo" style="font-size:18px;"><span class="mark" aria-hidden="true"></span><span>virtuleaf</span></div>
+        <button class="btn" type="button" onclick="closePanel()">Close</button>
+      </div>
+      <div class="links">
+        <a href="#shop" onclick="closePanel()">Shop</a>
+        <a href="#science" onclick="closePanel()">Science</a>
+        <a href="#learn" onclick="closePanel()">Learn</a>
+        <a href="#faq" onclick="closePanel()">Help</a>
+      </div>
+      <div class="row" style="justify-content:stretch;gap:10px;">
+        <button class="btn pop" type="button" style="flex:1;" onclick="closePanel();openQuiz()">Find my blend</button>
+        <a class="btn primary" href="#shop" style="flex:1;" onclick="closePanel()">Shop</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero slim">
+      <div class="wrap">
+        <div class="stack reveal">
+          <div class="stickerRow">
+            <span class="sticker"><span class="dot" aria-hidden="true"></span> Built for the long game</span>
+            <span class="sticker">Two‑blend system</span>
+            <span class="sticker">During activity</span>
+          </div>
+
+          <h1>High performance<br><span class="hl">without the crash.</span></h1>
+          <p class="lead">A simple AM/PM ritual for people who keep showing up. Energy when it helps. Recovery when it counts.</p>
+
+          <div class="row" style="flex-wrap:wrap;gap:10px;margin-top:8px;">
+            <a class="btn primary" href="#shop">Shop blends</a>
+            <button class="btn pop" type="button" onclick="openQuiz()">Find my blend</button>
+            <a class="btn" href="#science">See the science</a>
+          </div>
+
+          <p class="fine" style="margin-top:10px;">General wellness support. Not medical advice.</p>
+        </div>
+
+        <aside class="heroCard reveal" aria-label="AM/PM stack">
+          <div class="bar">
+            <span>AM/PM Ritual Stack</span>
+            <span class="miniTag"><span class="sw" style="background:var(--focus)" aria-hidden="true"></span>Focus</span>
+          </div>
+
+          <div class="stackCard">
+            <div class="tile focus">
+              <div>
+                <strong>Energy & Focus</strong>
+                <small>Clean, steady lift for deep work.</small>
+              </div>
+              <div style="text-align:right;">
+                <div class="price">$22</div>
+                <small>25 serves</small>
+              </div>
+            </div>
+
+            <div class="tile hydrate">
+              <div>
+                <strong>Hydration & Endurance</strong>
+                <small>Caffeine‑free reset for recovery.</small>
+              </div>
+              <div style="text-align:right;">
+                <div class="price">$22</div>
+                <small>25 serves</small>
+              </div>
+            </div>
+
+            <div class="tile bundle">
+              <div>
+                <strong>Daily Essentials Bundle</strong>
+                <small>AM + PM together. Simplest routine.</small>
+              </div>
+              <div style="text-align:right;">
+                <div class="price">$42</div>
+                <small>Save $2</small>
+              </div>
+            </div>
+
+            <div class="row" style="gap:10px;flex-wrap:wrap;">
+              <a class="btn primary" style="flex:1;" href="#shop">Shop</a>
+              <button class="btn" style="flex:1;" type="button" onclick="openQuiz()">Quiz</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section class="shop" id="shop">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Shop</div>
+            <h2>Two blends. Two outcomes.</h2>
+            <p class="lead">Functional, premium tea designed around performance: energise, focus, hydrate, endure.</p>
+          </div>
+          <button class="btn hide-sm" type="button" onclick="openQuiz()">Not sure? Quiz →</button>
+        </div>
+
+        <div class="cards">
+          <!-- Energy & Focus -->
+          <article class="card reveal" data-swatch="focus" aria-label="Energy & Focus">
+            <div class="img">
+              <div class="label">Energy & Focus</div>
+              <div class="ghostBox">
+                Replace with carton image<br>
+                (Energy & Focus)
+              </div>
+            </div>
+            <div class="body">
+              <div class="row" style="justify-content:space-between; align-items:flex-start; gap:10px;">
+                <div>
+                  <h3>Energy & Focus</h3>
+                  <div class="miniTag" style="margin-top:8px;">
+                    <span class="sw" style="background:var(--focus)" aria-hidden="true"></span> AM / during activity
+                  </div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="kicker">Price</div>
+                  <div class="meta" style="margin-top:4px;">
+                    <div class="p">$22</div>
+                  </div>
+                  <small>25 serves</small>
+                </div>
+              </div>
+
+              <p class="desc">Steady lift without the hard edge. Built for deep work and training days.</p>
+
+              <ul class="bul">
+                <li><span class="chk" aria-hidden="true">✓</span> Energise + focus positioning</li>
+                <li><span class="chk" aria-hidden="true">✓</span> No added sugar · no artificial flavours</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Designed for repeatability</li>
+              </ul>
+
+              <div class="actions">
+                <a class="btn primary" href="https://virtuleaf.com.au/products/natural-ceylon-black-tea-blend-energy-and-focus" target="_blank" rel="noreferrer">Shop Energy & Focus</a>
+                <a class="btn" href="/products/energy-focus/">View details →</a>
+              </div>
+
+              <p class="fine">Tip: Pair with PM for the full-day rhythm.</p>
+            </div>
+          </article>
+
+          <!-- Hydration & Endurance -->
+          <article class="card reveal" data-swatch="hydrate" aria-label="Hydration & Endurance">
+            <div class="img">
+              <div class="label">Hydration & Endurance</div>
+              <div class="ghostBox">
+                Replace with carton image<br>
+                (Hydration & Endurance)
+              </div>
+            </div>
+            <div class="body">
+              <div class="row" style="justify-content:space-between; align-items:flex-start; gap:10px;">
+                <div>
+                  <h3>Hydration & Endurance</h3>
+                  <div class="miniTag" style="margin-top:8px;">
+                    <span class="sw" style="background:var(--hydrate)" aria-hidden="true"></span> PM / during activity
+                  </div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="kicker">Price</div>
+                  <div class="meta" style="margin-top:4px;">
+                    <div class="p">$22</div>
+                  </div>
+                  <small>25 serves</small>
+                </div>
+              </div>
+
+              <p class="desc">Caffeine‑free reset that helps you stay steady into the evening.</p>
+
+              <ul class="bul">
+                <li><span class="chk" aria-hidden="true">✓</span> Hydrate + endure positioning</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Sleep‑safe (caffeine‑free)</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Built for recovery days</li>
+              </ul>
+
+              <div class="actions">
+                <a class="btn primary" href="https://virtuleaf.com.au/products/energy-focus-tea-copy" target="_blank" rel="noreferrer">Shop Hydration & Endurance</a>
+                <a class="btn" href="/products/hydration-endurance/">View details →</a>
+              </div>
+
+              <p class="fine">Tip: Use after lunch for a simple daily reset.</p>
+            </div>
+          </article>
+
+          <!-- Bundle -->
+          <article class="card reveal" data-swatch="bundle" aria-label="Daily Essentials Bundle">
+            <div class="img">
+              <div class="label">Best Value</div>
+              <div class="ghostBox">
+                Replace with bundle image<br>
+                (AM + PM)
+              </div>
+            </div>
+            <div class="body">
+              <div class="row" style="justify-content:space-between; align-items:flex-start; gap:10px;">
+                <div>
+                  <h3>Daily Essentials Bundle</h3>
+                  <div class="miniTag" style="margin-top:8px;">
+                    <span class="sw" style="background:var(--gold)" aria-hidden="true"></span> AM + PM
+                  </div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="kicker">Price</div>
+                  <div class="meta" style="margin-top:4px;">
+                    <div class="p">$42</div>
+                  </div>
+                  <small>50 serves</small>
+                </div>
+              </div>
+
+              <p class="desc">The simplest way to start: one habit, two cups, one rhythm.</p>
+
+              <ul class="bul">
+                <li><span class="chk" aria-hidden="true">✓</span> Full-day performance routine</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Save vs buying separately</li>
+                <li><span class="chk" aria-hidden="true">✓</span> Most popular starting point</li>
+              </ul>
+
+              <div class="actions">
+                <a class="btn primary" href="https://virtuleaf.com.au/" target="_blank" rel="noreferrer">Shop Bundle</a>
+                <a class="btn" href="#shop">See blends →</a>
+              </div>
+
+              <p class="fine">Start with Bundle if you want “default” consistency.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCIENCE -->
+    <section class="science" id="science">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Science</div>
+            <h2>Performance loves precision.</h2>
+            <p class="lead">Keep the shop bold, then earn trust here: sourcing, formulation logic, batch consistency, and transparent materials (only with real facts).</p>
+          </div>
+          <a class="btn hide-sm" href="#learn">Reference library →</a>
+        </div>
+
+        <div class="split">
+          <div class="lab reveal">
+            <div class="kicker">Figure</div>
+            <div class="fig">Add a real chart (e.g., caffeine curve by steep time)</div>
+            <div class="cap">Replace this placeholder with your measured data or verified sources.</div>
+          </div>
+
+          <div class="lab reveal">
+            <div class="kicker">Method</div>
+            <div class="stack" style="gap:8px; margin-top:8px;">
+              <h3 style="margin:0; font-family:'Space Grotesk',Inter,sans-serif; font-weight:800; letter-spacing:-.03em;">The AM/PM system</h3>
+              <p class="lead" style="font-size:13px; max-width:none;">
+                Not “more energy.” A routine that holds up under pressure: lift when needed, reset when it matters.
+              </p>
+            </div>
+
+            <div class="steps">
+              <div class="step"><b>01 · Source</b><small>Origin, harvest standards, batch consistency.</small></div>
+              <div class="step"><b>02 · Formulate</b><small>Clear purpose: energise/focus vs hydrate/endure.</small></div>
+              <div class="step"><b>03 · Package</b><small>Materials transparency (e.g., biodegradable tea bags).</small></div>
+              <div class="step"><b>04 · Repeat</b><small>Simple instructions that become a habit.</small></div>
+            </div>
+
+            <div class="row" style="margin-top:12px; gap:10px; flex-wrap:wrap;">
+              <button class="btn pop" type="button" onclick="openQuiz()">Find my blend</button>
+              <a class="btn primary" href="#shop">Shop</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARN -->
+    <section class="learn" id="learn">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Learn</div>
+            <h2>Short reads. Clear decisions.</h2>
+            <p class="lead">Turn Virtuleaf into a “mini media” system: guides, FAQs, and reference pages that support ads + retention.</p>
+          </div>
+          <a class="btn hide-sm" href="#email">Get updates</a>
+        </div>
+
+        <div class="refGrid">
+          <a class="ref reveal" href="#" aria-label="Guide">
+            <div class="meta2"><span>Guide</span><span class="arrow">→</span></div>
+            <div class="title">How to replace coffee without losing your mornings</div>
+            <div class="fine">A practical switch plan: timing, taste, and expectations.</div>
+          </a>
+
+          <a class="ref reveal" href="#" aria-label="Reference">
+            <div class="meta2"><span>Reference</span><span class="arrow">→</span></div>
+            <div class="title">Caffeine, stress, and the “3pm invoice”</div>
+            <div class="fine">What’s happening — and how routines shape it.</div>
+          </a>
+
+          <a class="ref reveal" href="#" aria-label="Ritual">
+            <div class="meta2"><span>Ritual</span><span class="arrow">→</span></div>
+            <div class="title">The AM/PM habit loop in 6 minutes</div>
+            <div class="fine">Build consistency without adding complexity.</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <div class="secHead reveal">
+          <div class="stack" style="gap:8px;">
+            <div class="kicker">Help</div>
+            <h2>FAQ</h2>
+            <p class="lead">Straight answers, minimal hype.</p>
+          </div>
+          <a class="btn hide-sm" href="#shop">Shop</a>
+        </div>
+
+        <div class="stack">
+          <details class="reveal">
+            <summary>Is Virtuleaf medical? <span class="plus" aria-hidden="true">+</span></summary>
+            <p>Virtuleaf is general wellness support. Avoid disease claims and keep your disclaimers clear.</p>
+          </details>
+
+          <details class="reveal">
+            <summary>When should I drink each blend? <span class="plus" aria-hidden="true">+</span></summary>
+            <p>Use Energy & Focus earlier in the day. Use Hydration & Endurance after lunch or anytime you want a caffeine‑free reset.</p>
+          </details>
+
+          <details class="reveal">
+            <summary>Are the tea bags biodegradable? <span class="plus" aria-hidden="true">+</span></summary>
+            <p>If you use biodegradable materials (e.g., PLA/Soilon®), state exactly what it is and add certifications where available.</p>
+          </details>
+
+          <details class="reveal">
+            <summary>Do you offer a guarantee? <span class="plus" aria-hidden="true">+</span></summary>
+            <p>Add your real policy here and link to Returns. Keep it simple: what qualifies, timeline, how to claim.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMAIL -->
+    <section class="email" id="email">
+      <div class="wrap">
+        <div class="stack reveal" style="gap:10px;">
+          <div class="kicker">Newsletter</div>
+          <h2>One habit, big horizon.</h2>
+          <p class="lead">Ritual reminders, new drops, and science‑clean guidance for high‑performance days.</p>
+
+          <form class="form" onsubmit="event.preventDefault();document.getElementById('emailOK').hidden=false;this.reset();">
+            <input class="field" type="email" placeholder="Email address" required aria-label="Email address" />
+            <button class="btn primary" type="submit">Join the list</button>
+          </form>
+          <div id="emailOK" class="fine" hidden>You're in. Check your inbox for a welcome email.</div>
+          <p class="fine">Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky CTA -->
+  <div class="sticky" id="sticky">
+    <div class="wrap">
+      <div class="mini"><strong>Ready to start?</strong> Shop the AM/PM ritual.</div>
+      <div class="row" style="gap:10px;">
+        <button class="btn pop" type="button" onclick="openQuiz()">Find my blend</button>
+        <a class="btn primary" href="#shop">Shop</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal" id="quiz" role="dialog" aria-modal="true" aria-label="Find my blend">
+    <div class="box">
+      <div class="bar">
+        <span>Find my blend</span>
+        <button type="button" onclick="closeQuiz()">Close</button>
+      </div>
+      <div class="body">
+        <div class="qstep active" id="q1">
+          <div class="qmeta"><span>Question 1 of 2</span><span>~20 seconds</span></div>
+          <div class="qtitle">What do you want most today?</div>
+          <div class="optGrid" role="group" aria-label="Goal selection">
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('goal','focus',this)">Focus <small>Deep work + clarity</small></button>
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('goal','energy',this)">Energy <small>Steady lift</small></button>
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('goal','hydration',this)">Hydration <small>Reset + steady afternoons</small></button>
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('goal','endurance',this)">Endurance <small>Finish stronger</small></button>
+          </div>
+          <div class="qnav">
+            <span></span>
+            <button class="btn primary" type="button" onclick="go(2)">Next →</button>
+          </div>
+        </div>
+
+        <div class="qstep" id="q2">
+          <div class="qmeta"><span>Question 2 of 2</span><span>Almost done</span></div>
+          <div class="qtitle">When do you hit the dip?</div>
+          <div class="optGrid" role="group" aria-label="Time selection">
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('time','morning',this)">Morning <small>I need a lift early</small></button>
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('time','midday',this)">Midday <small>Lunch wipes me out</small></button>
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('time','3pm',this)">3 PM wall <small>Classic slump</small></button>
+            <button class="opt" type="button" aria-pressed="false" onclick="pick('time','evening',this)">Evening <small>I fade too early</small></button>
+          </div>
+
+          <div class="qnav">
+            <button class="btn" type="button" onclick="go(1)">← Back</button>
+            <button class="btn pop" type="button" onclick="showResult()">Show my match</button>
+          </div>
+
+          <div class="result" id="result">
+            <div class="rec">
+              <div>
+                <strong id="recTitle">Your match</strong>
+                <p id="recText">—</p>
+              </div>
+              <div class="row" style="gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+                <a class="btn primary" id="recLink" href="#shop" onclick="closeQuiz()">Shop</a>
+                <button class="btn" type="button" onclick="resetQuiz()">Retake</button>
+              </div>
+            </div>
+            <p class="fine" style="margin-top:10px;">Tip: for simplest consistency, start with <strong>Bundle</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <div class="logo" style="color:white;"><span class="mark" aria-hidden="true" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);"></span><span>virtuleaf</span></div>
+          <p style="margin:10px 0 0;color:rgba(255,255,255,.72);max-width:46ch;">
+            Premium functional tea for high‑performance people. Two blends. One habit. Built for the long game.
+          </p>
+          <p class="fine" style="margin-top:10px;color:rgba(255,255,255,.55);">
+            Not intended to diagnose, treat, cure, or prevent any disease.
+          </p>
+        </div>
+
+        <div>
+          <div class="footH">Products</div>
+          <ul class="footA">
+            <li><a href="#shop">Shop all</a></li>
+            <li><a href="#shop">Energy & Focus</a></li>
+            <li><a href="#shop">Hydration & Endurance</a></li>
+            <li><a href="#shop">Bundle</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footH">Science</div>
+          <ul class="footA">
+            <li><a href="#science">Method</a></li>
+            <li><a href="#learn">Reference library</a></li>
+            <li><a href="#">Sourcing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footH">Help</div>
+          <ul class="footA">
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subfoot">
+        <div>© <span id="y"></span> Virtuleaf. All rights reserved.</div>
+        <div>Made for calm momentum.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    // Year
+    $("y").textContent = new Date().getFullYear();
+
+    // Mobile panel
+    function openPanel(){ $("panel").classList.add("open"); document.body.style.overflow="hidden"; }
+    function closePanel(){ $("panel").classList.remove("open"); document.body.style.overflow=""; }
+    window.openPanel = openPanel; window.closePanel = closePanel;
+
+    // Quiz modal
+    const state = { goal: null, time: null };
+    function openQuiz(){ $("quiz").classList.add("open"); document.body.style.overflow="hidden"; resetQuiz(false); }
+    function closeQuiz(){ $("quiz").classList.remove("open"); document.body.style.overflow=""; }
+    window.openQuiz = openQuiz; window.closeQuiz = closeQuiz;
+
+    function go(n){
+      $("q1").classList.toggle("active", n===1);
+      $("q2").classList.toggle("active", n===2);
+      $("result").classList.remove("show");
+    }
+    window.go = go;
+
+    function pick(key, val, btn){
+      state[key] = val;
+      const group = btn.closest(".optGrid");
+      [...group.querySelectorAll(".opt")].forEach(b => b.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+    }
+    window.pick = pick;
+
+    function showResult(){
+      const title = $("recTitle");
+      const text = $("recText");
+      const link = $("recLink");
+
+      const g = state.goal || "focus";
+      const t = state.time || "3pm";
+
+      // Simple mapping for 2 products + bundle
+      let rec = { name: "Daily Essentials Bundle", why: "You want full-day consistency: AM lift + PM reset.", href: "#shop" };
+
+      if (g === "focus" || g === "energy") rec = { name: "Energy & Focus", why: "Built for deep work + clean morning energy.", href: "#shop" };
+      if (g === "hydration" || g === "endurance") rec = { name: "Hydration & Endurance", why: "Caffeine-free recovery + steadier afternoons.", href: "#shop" };
+
+      // Time nudges
+      if (t === "midday" || t === "3pm") rec = { name: "Daily Essentials Bundle", why: "A predictable slump needs a predictable routine: AM + PM.", href: "#shop" };
+      if (t === "evening" && (g === "hydration" || g === "endurance")) rec = { name: "Hydration & Endurance", why: "A calm reset helps you finish the day better.", href: "#shop" };
+
+      title.textContent = rec.name;
+      text.textContent = rec.why;
+      link.setAttribute("href", rec.href);
+      $("result").classList.add("show");
+    }
+    window.showResult = showResult;
+
+    function resetQuiz(jumpToStart=true){
+      state.goal = null; state.time = null;
+      document.querySelectorAll("#quiz .opt").forEach(b => b.setAttribute("aria-pressed","false"));
+      $("result").classList.remove("show");
+      if (jumpToStart) go(1);
+    }
+    window.resetQuiz = resetQuiz;
+
+    // Close modal/panel on backdrop click
+    $("quiz").addEventListener("click", (e) => { if(e.target === $("quiz")) closeQuiz(); });
+    $("panel").addEventListener("click", (e) => { if(e.target === $("panel")) closePanel(); });
+
+    // Sticky CTA after some scroll
+    const sticky = $("sticky");
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      sticky.classList.toggle("show", y > 640);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in"); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
